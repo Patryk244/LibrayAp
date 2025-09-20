@@ -14,9 +14,9 @@ class ReaderTest {
     @Autowired
     private DbService dbService;
 
-    @AfterEach
+   // @AfterEach
     void init() {
-        dbService.deleteAllInDatabase();
+        dbService.deleteAllInDatabaseForReaderRepository();
     }
 
     @Test
