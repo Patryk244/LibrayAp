@@ -14,7 +14,7 @@ class ReaderTest {
     @Autowired
     private DbService dbService;
 
-   // @AfterEach
+  //  @AfterEach
     void init() {
         dbService.deleteAllInDatabaseForReaderRepository();
     }
@@ -25,7 +25,7 @@ class ReaderTest {
         Reader reader2 = new Reader(null,"Michal", "Nowak", LocalDate.now());
         dbService.saveReader(reader1);
         dbService.saveReader(reader2);
-        List<Reader> allReaders = dbService.findAllInDatabase();
+        List<Reader> allReaders = dbService.findAllInDatabaseReaderRepository();
         System.out.println("Size for allReaders: " + allReaders.size());
         assertEquals(2, allReaders.size());
     }

@@ -1,8 +1,6 @@
 package com.example.LibrayApp.controller;
 
-
-import com.example.LibrayApp.domain.BookNotFound;
-import com.example.LibrayApp.domain.ReaderNotFound;
+import com.example.LibrayApp.domain.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
