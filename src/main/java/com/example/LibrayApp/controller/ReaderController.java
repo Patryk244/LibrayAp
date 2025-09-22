@@ -27,7 +27,7 @@ public class ReaderController {
     }
 
     @GetMapping(value = "/name/{ReaderName}")
-    public List<ReaderDto> getReaderByName(@PathVariable String ReaderName) {
+    public List<ReaderDto> getReaderByName(@PathVariable String ReaderName) throws ReaderNotFound {
         List<Reader> findByName = dbService.findAllInDatabaseReaderRepositoryByReaderName(ReaderName);
         return readerMapper.mapToReaderDtoList(findByName);
     }

@@ -10,4 +10,5 @@ import java.util.*;
 public interface BookRepository extends CrudRepository<Book, Long> {
     Book save(Book book);
     List<Book> findAll();
+    void deleteById(Long id);
 }

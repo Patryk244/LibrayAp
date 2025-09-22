@@ -13,14 +13,14 @@ public class BookTest {
     @Autowired
     private DbService dbService;
 
-    @AfterEach
+   // @AfterEach
     void init() {
         dbService.deleteAllInDatabaseForBookRepository();
     }
 
     @Test
     void saveBook() {
-        Book book1 = new Book(null, "Good Book", "Unknown", 2012);
+        Book book1 = new Book(null, "Intresting Book", "Andrzej Konopski", 2012);
         Book book2 = new Book(null, "Good Book", "John Smith", 1950);
         dbService.saveBook(book1);
         dbService.saveBook(book2);

@@ -1,6 +1,7 @@
 package com.example.LibrayApp.service;
 
 import com.example.LibrayApp.domain.Book;
+import com.example.LibrayApp.domain.BookNotFound;
 import com.example.LibrayApp.domain.Reader;
 import com.example.LibrayApp.domain.ReaderNotFound;
 import com.example.LibrayApp.repository.BookRepository;
@@ -17,10 +18,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DbService {
 
-   // @Autowired
     private final ReaderRepository readerRepository;
 
-  //  @Autowired
     private final BookRepository bookRepository;
 
     public Reader saveReader(Reader reader) {
@@ -30,6 +29,7 @@ public class DbService {
     public void deleteAllInDatabaseForReaderRepository() {
         readerRepository.deleteAll();
     }
+
     public List<Reader> findAllInDatabaseReaderRepository() {
         return readerRepository.findAll();
     }
@@ -38,7 +38,7 @@ public class DbService {
         readerRepository.deleteById(id);
     }
 
-    public List<Reader> findAllInDatabaseReaderRepositoryByReaderName(final String ReaderName) {
+    public List<Reader> findAllInDatabaseReaderRepositoryByReaderName(final String ReaderName) throws ReaderNotFound {
         return readerRepository.findByFirstName(ReaderName);
     }
 
@@ -53,7 +53,16 @@ public class DbService {
     public void deleteAllInDatabaseForBookRepository() {
         bookRepository.deleteAll();
     }
+
     public List<Book> findAllInDatabaseForBookRepository() {
         return bookRepository.findAll();
+    }
+
+    public void removeByIdInDatabaseForBookRepository(final Long id) throws BookNotFound {
+        bookRepository.deleteById(id);
+    }
+
+    public Book findBookByUsingId(final Long Book_Id) throws BookNotFound {
+        return bookRepository.findById(Book_Id).orElseThrow(BookNotFound::new);
     }
 }
