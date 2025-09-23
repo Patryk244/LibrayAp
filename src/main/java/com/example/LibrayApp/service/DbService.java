@@ -1,18 +1,13 @@
 package com.example.LibrayApp.service;
 
-import com.example.LibrayApp.domain.Book;
-import com.example.LibrayApp.domain.BookNotFound;
-import com.example.LibrayApp.domain.Reader;
-import com.example.LibrayApp.domain.ReaderNotFound;
+import com.example.LibrayApp.domain.*;
 import com.example.LibrayApp.repository.BookRepository;
+import com.example.LibrayApp.repository.CopyBookRepository;
 import com.example.LibrayApp.repository.ReaderRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +16,8 @@ public class DbService {
     private final ReaderRepository readerRepository;
 
     private final BookRepository bookRepository;
+
+    private final CopyBookRepository copyBookRepository;
 
     public Reader saveReader(Reader reader) {
         return readerRepository.save(reader);
@@ -64,5 +61,21 @@ public class DbService {
 
     public Book findBookByUsingId(final Long Book_Id) throws BookNotFound {
         return bookRepository.findById(Book_Id).orElseThrow(BookNotFound::new);
+    }
+
+    public void createBookCopy() {
+        List<Book> books = findAllInDatabaseForBookRepository();
+        for (Book book : books) {
+            CopyBook copyBook = new CopyBook(null, book, StatusCopyOfBook.AVAILABLE);
+            copyBookRepository.save(copyBook);
+        }
+    }
+
+    public List<CopyBook> findAllInDatabaseForCopyBookRepository() {
+        return copyBookRepository.findAll();
+    }
+
+    public void deleteAllFormCopyBookRepository() {
+        copyBookRepository.deleteAll();
     }
 }
