@@ -15,7 +15,7 @@ public class CopyBook {
     private Long copyBook_id;
 
     @JoinColumn(name = "book_id")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Book book;
 
     @Enumerated(EnumType.STRING)

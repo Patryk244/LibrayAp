@@ -16,4 +16,9 @@ public class GlobalHttpErrorHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleBookNotFound(BookNotFound ex){
         return new ResponseEntity<>("Book not found", HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler
+    public ResponseEntity<Object> handleCopyBookNotFound(CopyBookNotFound ex){
+        return new ResponseEntity<>("CopyBook not found", HttpStatus.NOT_FOUND);
+    }
 }

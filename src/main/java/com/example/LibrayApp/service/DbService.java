@@ -63,12 +63,17 @@ public class DbService {
         return bookRepository.findById(Book_Id).orElseThrow(BookNotFound::new);
     }
 
-    public void createBookCopy() {
+    public CopyBook saveCopyBook(CopyBook copyBook) {
+        return copyBookRepository.save(copyBook);
+    }
+
+    public Iterable<CopyBook> createBookCopy() {
         List<Book> books = findAllInDatabaseForBookRepository();
+        List<CopyBook> preparedCopyBookToSave = new ArrayList<>();
         for (Book book : books) {
-            CopyBook copyBook = new CopyBook(null, book, StatusCopyOfBook.AVAILABLE);
-            copyBookRepository.save(copyBook);
+            preparedCopyBookToSave.add(new CopyBook(null, book, StatusCopyOfBook.AVAILABLE));
         }
+        return copyBookRepository.saveAll(preparedCopyBookToSave);
     }
 
     public List<CopyBook> findAllInDatabaseForCopyBookRepository() {
@@ -77,5 +82,9 @@ public class DbService {
 
     public void deleteAllFormCopyBookRepository() {
         copyBookRepository.deleteAll();
+    }
+
+    public long counterNumberTitle(String title) throws CopyBookNotFound {
+        return copyBookRepository.countCopyBookByBook_Title(title);
     }
 }
